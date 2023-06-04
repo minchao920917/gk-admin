@@ -1,63 +1,68 @@
-
+<!--
+ * @Author: minchao920917 499790879@qq.com
+ * @Date: 2023-06-04 23:52:16
+ * @LastEditors: Do not edit
+ * @Description: 
+-->
 <script lang="ts">
-import { doEdit } from '@/api/table'
+import { doEdit } from "@/api/table";
 
 export default defineComponent({
-  name: 'TableEdit',
-  emits: ['fetch-data'],
+  name: "TableEdit",
+  emits: ["fetchData"],
   setup(props, { emit }) {
-    const $baseMessage: any = inject('$baseMessage')
+    const $baseMessage: any = inject("$baseMessage");
 
     const state = reactive({
       formRef: null as any,
       form: {
-        title: '',
-        author: '',
+        title: "",
+        author: ""
       },
       rules: {
-        title: [{ required: true, trigger: 'blur', message: '请输入标题' }],
-        author: [{ required: true, trigger: 'blur', message: '请输入作者' }],
+        title: [{ required: true, trigger: "blur", message: "请输入标题" }],
+        author: [{ required: true, trigger: "blur", message: "请输入作者" }]
       },
-      title: '',
-      dialogFormVisible: false,
-    })
+      title: "",
+      dialogFormVisible: false
+    });
 
     const showEdit = (row: any) => {
       if (!row) {
-        state.title = '添加'
+        state.title = "添加";
       } else {
-        state.title = '编辑'
-        state.form = JSON.parse(JSON.stringify(row))
+        state.title = "编辑";
+        state.form = JSON.parse(JSON.stringify(row));
       }
-      state.dialogFormVisible = true
-    }
+      state.dialogFormVisible = true;
+    };
     const close = () => {
-      state.formRef.resetFields()
+      state.formRef.resetFields();
       state.form = {
-        title: '',
-        author: '',
-      }
-      state.dialogFormVisible = false
-    }
+        title: "",
+        author: ""
+      };
+      state.dialogFormVisible = false;
+    };
     const save = () => {
       state.formRef.validate(async (valid: any) => {
         if (valid) {
-          const res: any = await doEdit(state.form)
-          $baseMessage(res.msg, 'success', 'mc-hey-message-success')
-          emit('fetch-data')
-          close()
+          const res: any = await doEdit(state.form);
+          $baseMessage(res.msg, "success", "mc-hey-message-success");
+          emit("fetchData");
+          close();
         }
-      })
-    }
+      });
+    };
 
     return {
       ...toRefs(state),
       showEdit,
       close,
-      save,
-    }
-  },
-})
+      save
+    };
+  }
+});
 </script>
 
 <template>

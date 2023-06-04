@@ -1,10 +1,9 @@
 /* eslint-disable prettier/prettier */
-import { useUserStore } from "@/store/modules/user";
+import { useUserStore } from "@/stores/modules/user";
 import config from "@/config";
 import qs from "qs";
-import router from "@/router";
+import router from "@/routers";
 import { isArray } from "@/utils/validate";
-import { addErrorLog, needErrorLog } from "@library/plugins/errorLog";
 import { refreshToken } from "@/api/refreshToken";
 import { gp } from "@gp";
 
@@ -131,7 +130,6 @@ const handleData = async ({ config, data, status, statusText }: any) => {
   const errMsg = `${data && data[messageName] ? data[messageName] : CODE_MESSAGE[code] ? CODE_MESSAGE[code] : statusText}`;
   // 是否显示高亮错误(与errorHandler钩子触发逻辑一致)
   gp.$baseMessage(errMsg, "error", "mc-hey-message-error", false);
-  if (needErrorLog()) addErrorLog({ message: errMsg, stack: data, isRequest: true });
   return Promise.reject(data);
 };
 

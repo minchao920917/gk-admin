@@ -30,15 +30,15 @@ export const staticRouter: RouteRecordRaw[] = [
     meta: {
       title: "引导页"
     }
+  },
+  {
+    path: "/layout",
+    name: "layout",
+    component: () => import("@/layouts/index.vue"),
+    // component: () => import("@/layouts/indexAsync.vue"),
+    redirect: HOME_URL,
+    children: []
   }
-  // {
-  //   path: "/layout",
-  //   name: "layout",
-  //   component: () => import("@/layouts/index.vue"),
-  //   // component: () => import("@/layouts/indexAsync.vue"),
-  //   redirect: HOME_URL,
-  //   children: []
-  // }
 ];
 
 /**

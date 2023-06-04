@@ -1,3 +1,9 @@
+/*
+ * @Author: minchao920917 499790879@qq.com
+ * @Date: 2023-06-04 10:22:14
+ * @LastEditors: Do not edit
+ * @Description:
+ */
 import { Login } from "@/api/interface/index";
 import { PORT1 } from "@/api/config/servicePort";
 import authMenuList from "@/assets/json/authMenuList.json";
@@ -18,7 +24,7 @@ export const loginApi = (params: Login.ReqLoginForm) => {
 
 // 获取菜单列表
 export const getAuthMenuListApi = () => {
-  return http.get<Menu.MenuOptions[]>(PORT1 + `/menu/list`, {}, { noLoading: true });
+  // return http.get<Menu.MenuOptions[]>(PORT1 + `/menu/list`, {}, { noLoading: true });
   // 如果想让菜单变为本地数据，注释上一行代码，并引入本地 authMenuList.json 数据
   return authMenuList;
 };

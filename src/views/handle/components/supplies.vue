@@ -1,20 +1,19 @@
-
 <script lang="ts">
-import { doDelete, getList } from '@/api/table'
-import VueDraggable from 'vuedraggable'
-import { CircleCheck, Delete, Plus, Search, Setting } from '@element-plus/icons-vue'
-import Reject from './reject.vue'
+import { getList } from "@/api/table";
+import VueDraggable from "vuedraggable";
+import { CircleCheck, Delete, Plus, Search, Setting } from "@element-plus/icons-vue";
+import Reject from "./reject.vue";
 
 export default defineComponent({
-  name: 'Supplies',
+  name: "Supplies",
   components: {
     Reject,
-    VueDraggable,
+    VueDraggable
   },
   setup() {
-    const $baseConfirm: any = inject('$baseConfirm')
-    const $baseMessage: any = inject('$baseMessage')
-    const $baseTableHeight: any = inject('$baseTableHeight')
+    const $baseConfirm: any = inject("$baseConfirm");
+    const $baseMessage: any = inject("$baseMessage");
+    const $baseTableHeight: any = inject("$baseTableHeight");
 
     const state = reactive({
       tableSortRef: null as any,
@@ -22,133 +21,133 @@ export default defineComponent({
       border: true,
       height: $baseTableHeight(1),
       stripe: false,
-      lineHeight: 'small' as any,
-      checkList: ['物资名称', '发布人', '状态', '时间'],
+      lineHeight: "small" as any,
+      checkList: ["物资名称", "发布人", "状态", "时间"],
       columns: [
         {
-          label: '物资名称',
-          prop: 'title',
+          label: "物资名称",
+          prop: "title",
           sortable: true,
-          disableCheck: true,
+          disableCheck: true
         },
         {
-          label: '发布人',
-          prop: 'author',
-          sortable: true,
+          label: "发布人",
+          prop: "author",
+          sortable: true
         },
         {
-          label: '状态',
-          prop: 'state',
-          sortable: true,
+          label: "状态",
+          prop: "state",
+          sortable: true
         },
         {
-          label: '时间',
-          prop: 'datetime',
-          sortable: true,
-        },
+          label: "时间",
+          prop: "datetime",
+          sortable: true
+        }
       ],
       list: [],
       imageList: [],
       listLoading: true,
-      layout: 'total, sizes, prev, pager, next, jumper',
+      layout: "total, sizes, prev, pager, next, jumper",
       total: 0,
       selectRows: [],
       queryForm: {
         pageNo: 1,
         pageSize: 20,
-        title: '',
-      },
-    })
+        title: ""
+      }
+    });
 
     const dragOptions = computed(() => {
       return {
         animation: 600,
-        group: 'description',
-      }
-    })
+        group: "description"
+      };
+    });
 
     const finallyColumns = computed(() => {
-      return state.columns.filter((item) =>
-        state.checkList.includes(item.label)
-      )
-    })
+      return state.columns.filter(item => state.checkList.includes(item.label));
+    });
 
     const fetchData = async () => {
-      state.listLoading = true
+      state.listLoading = true;
       const {
-        data: { list, total },
-      } = await getList(state.queryForm)
-      state.list = list
-      const imageList = []
+        data: { list, total }
+      } = await getList(state.queryForm);
+      state.list = list;
+      const imageList = [];
       list.forEach((item: any) => {
-        imageList.push(item.img)
-      })
-      state.total = total
-      state.listLoading = false
-    }
+        imageList.push(item.img);
+      });
+      state.total = total;
+      state.listLoading = false;
+    };
     const handleSizeChange = (val: any) => {
-      state.queryForm.pageSize = val
-      fetchData()
-    }
+      state.queryForm.pageSize = val;
+      fetchData();
+    };
     const handleCurrentChange = (val: any) => {
-      state.queryForm.pageNo = val
-      fetchData()
-    }
+      state.queryForm.pageNo = val;
+      fetchData();
+    };
     const queryData = () => {
-      state.queryForm.pageNo = 1
-      fetchData()
-    }
+      state.queryForm.pageNo = 1;
+      fetchData();
+    };
 
-    const containerRef = ref()
-    const { toggle, isFullscreen } = useFullscreen(containerRef)
+    const containerRef = ref();
+    const { toggle, isFullscreen } = useFullscreen(containerRef);
     const clickFullScreen = () => {
       toggle().then(() => {
-        handleHeight()
-        state.tableSortRef.doLayout()
-      })
-    }
+        handleHeight();
+        state.tableSortRef.doLayout();
+      });
+    };
     const handleHeight = () => {
-      if (isFullscreen.value) state.height = $baseTableHeight(1) + 200
-      else state.height = $baseTableHeight(1)
-    }
+      if (isFullscreen.value) state.height = $baseTableHeight(1) + 200;
+      else state.height = $baseTableHeight(1);
+    };
     const setSelectRows = (val: any) => {
-      state.selectRows = val
-      console.log('val', val)
-    }
+      state.selectRows = val;
+      console.log("val", val);
+    };
 
     /**
      * 批量通过
      */
     const handleApproveMore = () => {
-      $baseConfirm('你确定要通过当前项吗', null, async () => {
-        $baseMessage('通过审核成功', 'success', 'mc-hey-message-success')
-      })
-    }
+      $baseConfirm("你确定要通过当前项吗", null, async () => {
+        $baseMessage("通过审核成功", "success", "mc-hey-message-success");
+      });
+    };
     /**
      * 通过单行
-     * @param row 
+     * @param row
      */
     const handleApprove = (row: any) => {
-      $baseConfirm('你确定要通过当前项吗', null, async () => {
-        $baseMessage('通过审核成功', 'success', 'mc-hey-message-success')
-      })
-    }
+      console.log(row);
+      $baseConfirm("你确定要通过当前项吗", null, async () => {
+        $baseMessage("通过审核成功", "success", "mc-hey-message-success");
+      });
+    };
     /**
      * 批量拒绝
      */
     const handleRejectMore = () => {
-      state.rejectRef.showDialog()
-    }
+      state.rejectRef.showDialog();
+    };
     /**
      * 拒绝单行
-     * @param row 
+     * @param row
      */
     const handleReject = (row: any) => {
-      state.rejectRef.showDialog()
-    }
+      console.log(row);
+      state.rejectRef.showDialog();
+    };
     onMounted(() => {
-      fetchData()
-    })
+      fetchData();
+    });
 
     return {
       ...toRefs(state),
@@ -171,10 +170,10 @@ export default defineComponent({
       CircleCheck,
       Delete,
       Search,
-      Setting,
-    }
-  },
-})
+      Setting
+    };
+  }
+});
 </script>
 <template>
   <div ref="containerRef" class="custom-table-container">
@@ -185,16 +184,10 @@ export default defineComponent({
             <el-input v-model="queryForm.title" placeholder="物资名称" />
           </el-form-item>
           <el-form-item>
-            <el-button :icon="Search" native-type="submit" type="primary" @click="queryData">
-              查询
-            </el-button>
+            <el-button :icon="Search" native-type="submit" type="primary" @click="queryData"> 查询 </el-button>
 
-            <el-button :icon="CircleCheck" type="primary" @click="handleApproveMore">
-              批量通过
-            </el-button>
-            <el-button :icon="Delete" type="danger" @click="handleRejectMore">
-              批量拒绝
-            </el-button>
+            <el-button :icon="CircleCheck" type="primary" @click="handleApproveMore"> 批量通过 </el-button>
+            <el-button :icon="Delete" type="danger" @click="handleRejectMore"> 批量拒绝 </el-button>
           </el-form-item>
         </el-form>
       </mc-query-form-left-panel>
@@ -222,7 +215,7 @@ export default defineComponent({
         </el-popover>
         <el-popover popper-class="custom-table-checkbox" trigger="hover">
           <template #reference>
-            <el-button style="margin: 0 0 10px 0 !important" text type="primary">
+            <el-button style="margin: 0 0 10px !important" text type="primary">
               <mc-icon icon="settings-line" />
             </el-button>
           </template>
@@ -242,8 +235,16 @@ export default defineComponent({
       </mc-query-form-right-panel>
     </mc-query-form>
 
-    <el-table ref="tableSortRef" v-loading="listLoading" :border="border" :data="list" :height="height" :size="lineHeight"
-      :stripe="stripe" @selection-change="setSelectRows">
+    <el-table
+      ref="tableSortRef"
+      v-loading="listLoading"
+      :border="border"
+      :data="list"
+      :height="height"
+      :size="lineHeight"
+      :stripe="stripe"
+      @selection-change="setSelectRows"
+    >
       <el-table-column align="center" type="selection" width="55" />
       <el-table-column align="center" label="序号" show-overflow-tooltip width="50">
         <template #default="{ $index }">
@@ -252,8 +253,15 @@ export default defineComponent({
       </el-table-column>
 
       <!--  TODO element-plus未知原因不支持拖拽后宽度重新计算，暂时放弃 -->
-      <el-table-column v-for="(item, index) in finallyColumns" :key="index" align="center" :label="item.label"
-        :prop="item.prop" :sortable="item.sortable" width="auto">
+      <el-table-column
+        v-for="(item, index) in finallyColumns"
+        :key="index"
+        align="center"
+        :label="item.label"
+        :prop="item.prop"
+        :sortable="item.sortable"
+        width="auto"
+      >
         <template #default="{ row }">
           <span v-if="item.label === '状态'">
             <span>待审批</span>
@@ -264,12 +272,8 @@ export default defineComponent({
 
       <el-table-column align="center" label="操作" show-overflow-tooltip width="200">
         <template #default="{ row }">
-          <el-button text type="primary" @click="handleApprove(row)">
-            通过
-          </el-button>
-          <el-button text type="primary" @click="handleReject(row)">
-            拒绝
-          </el-button>
+          <el-button text type="primary" @click="handleApprove(row)"> 通过 </el-button>
+          <el-button text type="primary" @click="handleReject(row)"> 拒绝 </el-button>
         </template>
       </el-table-column>
 
@@ -277,14 +281,19 @@ export default defineComponent({
         <el-empty class="mc-data-empty" description="暂无数据" />
       </template>
     </el-table>
-    <el-pagination background :current-page="queryForm.pageNo" :layout="layout" :page-size="queryForm.pageSize"
-      :total="total" @current-change="handleCurrentChange" @size-change="handleSizeChange" />
+    <el-pagination
+      background
+      :current-page="queryForm.pageNo"
+      :layout="layout"
+      :page-size="queryForm.pageSize"
+      :total="total"
+      @current-change="handleCurrentChange"
+      @size-change="handleSizeChange"
+    />
 
     <reject ref="rejectRef" @fetch-data="fetchData" />
   </div>
 </template>
-
-
 <style lang="scss" scoped>
 .custom-table-container {
   :deep() {
@@ -292,21 +301,17 @@ export default defineComponent({
       cursor: pointer;
     }
   }
-
   .right-panel {
-
     .stripe-panel,
     .border-panel {
-      margin: 0 10px #{math.div($base-margin, 2)} 10px !important;
-
+      margin: 0 10px $base-margin 0 !important;
       :deep() {
         .el-checkbox__label {
           margin-left: 0 !important;
         }
       }
     }
-
-    [class*='ri'] {
+    [class*="ri"] {
       font-size: $base-font-size-big;
       color: var(--el-color-black);
     }
@@ -315,16 +320,14 @@ export default defineComponent({
 </style>
 <style lang="scss">
 html body .custom-table-checkbox {
-  [class*='ri'] {
+  [class*="ri"] {
     vertical-align: -0.5px !important;
     cursor: pointer;
   }
-
   .el-checkbox {
     margin: 5px 0 5px 8px;
   }
 }
-
 .custom-table-radio {
   width: 240px !important;
 }

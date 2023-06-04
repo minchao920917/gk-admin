@@ -4,18 +4,15 @@
  * @LastEditors: Do not edit
  * @Description: 
 -->
-  
+
 <script lang="ts">
-import comprehensiveTable from './components/comprehensiveTable.vue'
+import comprehensiveTable from "./components/comprehensiveTable.vue";
 export default defineComponent({
-  name: 'Center',
   components: {
     comprehensiveTable
   },
-  setup() {
-
-  },
-})
+  setup() {}
+});
 </script>
 
 <template>
@@ -23,5 +20,3 @@ export default defineComponent({
     <comprehensiveTable></comprehensiveTable>
   </div>
 </template>
-
-  

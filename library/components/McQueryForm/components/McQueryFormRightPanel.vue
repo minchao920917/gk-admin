@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-  defineProps({
-    span: {
-      type: Number,
-      default: 10,
-    },
-  })
+defineProps({
+  span: {
+    type: Number,
+    default: 10
+  }
+});
 </script>
 
 <template>

@@ -1,54 +1,60 @@
+<!--
+ * @Author: minchao920917 499790879@qq.com
+ * @Date: 2023-06-04 23:52:31
+ * @LastEditors: Do not edit
+ * @Description: 
+-->
 <script lang="ts">
-import { doEdit } from '@/api/table'
+import { doEdit } from "@/api/table";
 
 export default defineComponent({
-  name: 'Reject',
-  emits: ['fetch-data'],
+  name: "Reject",
+  emits: ["fetchData"],
   setup(props, { emit }) {
-    const $baseMessage: any = inject('$baseMessage')
+    const $baseMessage: any = inject("$baseMessage");
 
     const state = reactive({
       formRef: null as any,
       form: {
-        reson: '',
-
+        reson: ""
       },
       rules: {
-        reson: [{ required: true, trigger: 'blur', message: '请输入标题' }],
+        reson: [{ required: true, trigger: "blur", message: "请输入标题" }]
       },
-      title: '拒绝',
-      dialogFormVisible: false,
-    })
+      title: "拒绝",
+      dialogFormVisible: false
+    });
 
     const showDialog = (row: any) => {
-      state.dialogFormVisible = true
-    }
+      console.log(row);
+      state.dialogFormVisible = true;
+    };
     const close = () => {
-      state.formRef.resetFields()
+      state.formRef.resetFields();
       state.form = {
-        reson: '',
-      }
-      state.dialogFormVisible = false
-    }
+        reson: ""
+      };
+      state.dialogFormVisible = false;
+    };
     const save = () => {
       state.formRef.validate(async (valid: any) => {
         if (valid) {
-          const res: any = await doEdit(state.form)
-          $baseMessage(res.msg, 'success', 'mc-hey-message-success')
-          emit('fetch-data')
-          close()
+          const res: any = await doEdit(state.form);
+          $baseMessage(res.msg, "success", "mc-hey-message-success");
+          emit("fetchData");
+          close();
         }
-      })
-    }
+      });
+    };
 
     return {
       ...toRefs(state),
       showDialog,
       close,
-      save,
-    }
-  },
-})
+      save
+    };
+  }
+});
 </script>
 <template>
   <el-dialog v-model="dialogFormVisible" :title="title" width="500px" @close="close">
@@ -63,5 +69,3 @@ export default defineComponent({
     </template>
   </el-dialog>
 </template>
-
-

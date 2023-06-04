@@ -5,27 +5,24 @@
  * @Description: 
 -->
 <script lang="ts">
-
-import comments from './components/comments.vue'
-import supplies from './components/supplies.vue'
+import comments from "./components/comments.vue";
+import supplies from "./components/supplies.vue";
 
 export default defineComponent({
-  name: 'Handle',
+  name: "Handle",
   components: {
     supplies,
     comments
   },
   setup() {
-    const tabPosition = ref('supplies')
-    onMounted(() => {
-
-    })
+    const tabPosition = ref("supplies");
+    onMounted(() => {});
 
     return {
-      tabPosition,
-    }
-  },
-})
+      tabPosition
+    };
+  }
+});
 </script>
 <template>
   <div class="mc-main-container">
@@ -35,8 +32,5 @@ export default defineComponent({
     </el-radio-group>
     <supplies v-if="tabPosition == 'supplies'"></supplies>
     <comments v-if="tabPosition == 'comments'"></comments>
-
   </div>
 </template>
-
-  
