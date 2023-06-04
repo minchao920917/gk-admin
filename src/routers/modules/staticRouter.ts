@@ -1,5 +1,11 @@
+/*
+ * @Author: minchao920917 499790879@qq.com
+ * @Date: 2023-06-04 10:22:14
+ * @LastEditors: Do not edit
+ * @Description:
+ */
 import { RouteRecordRaw } from "vue-router";
-import { HOME_URL, LOGIN_URL } from "@/config";
+import { HOME_URL, LOGIN_URL, GUIDE_URL } from "@/config";
 
 /**
  * staticRouter (静态路由)
@@ -18,13 +24,21 @@ export const staticRouter: RouteRecordRaw[] = [
     }
   },
   {
-    path: "/layout",
-    name: "layout",
-    component: () => import("@/layouts/index.vue"),
-    // component: () => import("@/layouts/indexAsync.vue"),
-    redirect: HOME_URL,
-    children: []
+    path: GUIDE_URL,
+    name: "guide",
+    component: () => import("@/views/guide/index.vue"),
+    meta: {
+      title: "引导页"
+    }
   }
+  // {
+  //   path: "/layout",
+  //   name: "layout",
+  //   component: () => import("@/layouts/index.vue"),
+  //   // component: () => import("@/layouts/indexAsync.vue"),
+  //   redirect: HOME_URL,
+  //   children: []
+  // }
 ];
 
 /**
@@ -54,10 +68,10 @@ export const errorRouter = [
     meta: {
       title: "500页面"
     }
-  },
-  // Resolve refresh page, route warnings
-  {
-    path: "/:pathMatch(.*)*",
-    component: () => import("@/components/ErrorMessage/404.vue")
   }
+  // Resolve refresh page, route warnings
+  // {
+  //   path: "/:pathMatch(.*)*",
+  //   component: () => import("@/components/ErrorMessage/404.vue")
+  // }
 ];

@@ -16,6 +16,20 @@
       }
     },
     {
+      "path": "/guide",
+      "name": "guide",
+      "component": "/guide/index",
+      "meta": {
+        "icon": "Histogram",
+        "title": "引导页",
+        "isLink": "",
+        "isHide": false,
+        "isFull": true,
+        "isAffix": false,
+        "isKeepAlive": true
+      }
+    },
+    {
       "path": "/dataScreen",
       "name": "dataScreen",
       "component": "/dataScreen/index",

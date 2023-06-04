@@ -16,6 +16,9 @@ export const HOME_URL: string = "/home/index";
 // 登录页地址（默认）
 export const LOGIN_URL: string = "/login";
 
+// 引导页地址（默认）
+export const GUIDE_URL: string = "/guide";
+
 // 默认主题颜色
 export const DEFAULT_PRIMARY: string = "#009688";
 

@@ -1,0 +1,41 @@
+$base-color-primary: #6954f0;
+$base-color-success: #13ce66;
+$base-color-warning: #ffba00;
+$base-color-danger: #ff4d4f;
+$base-color-error: #ff4d4f;
+$base-color-transition: #1890ff;
+
+:export {
+  mc-color-grey: $base-color-grey;
+  mc-color-black: $base-color-black;
+  mc-color-primary: $base-color-primary;
+  mc-color-primary-light-1: mix($base-color-white, $base-color-primary, 10%);
+  mc-color-primary-light-2: mix($base-color-white, $base-color-primary, 20%);
+  mc-color-primary-light-3: mix($base-color-white, $base-color-primary, 30%);
+  mc-color-primary-light-4: mix($base-color-white, $base-color-primary, 40%);
+  mc-color-primary-light-5: mix($base-color-white, $base-color-primary, 50%);
+  mc-color-primary-light-6: mix($base-color-white, $base-color-primary, 60%);
+  mc-color-primary-light-7: mix($base-color-white, $base-color-primary, 70%);
+  mc-color-primary-light-8: mix($base-color-white, $base-color-primary, 80%);
+  mc-color-primary-light-9: mix($base-color-white, $base-color-primary, 90%);
+  mc-color-success: $base-color-success;
+  mc-color-success-light: mix($base-color-white, $base-color-success, 80%);
+  mc-color-success-lighter: mix($base-color-white, $base-color-success, 90%);
+  mc-color-warning: $base-color-warning;
+  mc-color-warning-light: mix($base-color-white, $base-color-warning, 80%);
+  mc-color-warning-lighter: mix($base-color-white, $base-color-warning, 90%);
+  mc-color-danger: $base-color-danger;
+  mc-color-danger-light: mix($base-color-white, $base-color-danger, 80%);
+  mc-color-danger-lighter: mix($base-color-white, $base-color-danger, 90%);
+  mc-color-error: $base-color-error;
+  mc-color-error-light: mix($base-color-white, $base-color-error, 80%);
+  mc-color-error-lighter: mix($base-color-white, $base-color-error, 90%);
+  mc-color-info: $base-color-text-secondary;
+  mc-color-info-light: mix($base-color-white, $base-color-text-secondary, 80%);
+  mc-color-info-lighter: mix($base-color-white,
+      $base-color-text-secondary,
+      90%);
+  mc-border-radius-base: 2.5px;
+  mc-color-transition: $base-color-transition;
+  mc-left-menu-width: $base-left-menu-width;
+}

@@ -1,3 +1,9 @@
+/*
+ * @Author: minchao920917 499790879@qq.com
+ * @Date: 2023-06-04 10:22:14
+ * @LastEditors: Do not edit
+ * @Description:
+ */
 import { createApp } from "vue";
 import App from "./App.vue";
 // reset style sheet
@@ -16,6 +22,8 @@ import "element-plus/theme-chalk/dark/css-vars.css";
 import "@/styles/theme/element-dark.scss";
 // custom element css
 import "@/styles/element.scss";
+// 加载全局样式样式
+import "@/styles/mc.scss";
 // svg icons
 import "virtual:svg-icons-register";
 // element plus

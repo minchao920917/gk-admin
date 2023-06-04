@@ -1,27 +1,23 @@
-<script lang="ts" setup>
-import { useRoutesStore } from '@/store/modules/routes'
-import menuVariables from '@/styles/menu.module.scss'
+<script lang="ts" setup name="McHeader">
+import { useRoutesStore } from "@/stores/modules/routes";
+import menuVariables from "@/styles/menu.module.scss";
 
-const router = useRouter()
-
-
+const router = useRouter();
 defineProps({
   layout: {
     type: String,
-    default: 'horizontal',
-  },
-})
+    default: "horizontal"
+  }
+});
 
-const routesStore = useRoutesStore()
-const { getActiveMenu: activeMenu, getRoutes: routes, } = routesStore
+const routesStore = useRoutesStore();
+const { getActiveMenu: activeMenu, getRoutes: routes } = routesStore;
 
 const handleSelect = (path: string) => {
-  console.log('activeMenu', activeMenu)
-  console.log('path', path)
-  router.push({ path })
-}
-
-
+  console.log("activeMenu", activeMenu);
+  console.log("path", path);
+  router.push({ path });
+};
 </script>
 
 <template>
@@ -33,9 +29,16 @@ const handleSelect = (path: string) => {
         </el-col>
         <el-col :span="18">
           <div class="right-panel">
-            <el-menu :active-text-color="menuVariables['menu-color-active']"
-              :background-color="menuVariables['menu-background']" :default-active="activeMenu.data" menu-trigger="hover"
-              mode="horizontal" teleported style="width: 70%" :text-color="menuVariables['menu-color']">
+            <el-menu
+              :active-text-color="menuVariables['menu-color-active']"
+              :background-color="menuVariables['menu-background']"
+              :default-active="activeMenu.data"
+              menu-trigger="hover"
+              mode="horizontal"
+              teleported
+              style="width: 70%"
+              :text-color="menuVariables['menu-color']"
+            >
               <!-- <template v-for="(item, index) in routes.flatMap((route) =>
                 route['meta'] &&
                   route['meta']['levelHidden'] &&
@@ -68,91 +71,77 @@ const handleSelect = (path: string) => {
 <style lang="scss" scoped>
 // @use 'sass:math';
 $base-menu-height: 40px;
-
 .mc-header {
   display: flex;
   align-items: center;
   justify-items: flex-end;
   height: $base-header-height;
   background: $base-menu-background;
-
   .mc-main {
     padding: 0 $base-padding 0 $base-padding;
-
     .right-panel {
       display: flex;
       align-items: center;
       justify-content: flex-end;
       height: $base-header-height;
-
       :deep() {
         .el-sub-menu__icon-more {
           margin-top: #{math.div($base-menu-height - 20, 2)} !important;
           margin-right: 20px !important;
         }
-
-        >.el-menu--horizontal.el-menu {
-          >.el-sub-menu>.el-sub-menu__title {
+        > .el-menu--horizontal.el-menu {
+          > .el-sub-menu > .el-sub-menu__title {
             padding-right: 0;
-
-            >.el-sub-menu__icon-arrow {
+            > .el-sub-menu__icon-arrow {
               position: relative !important;
               margin-top: -5px !important;
               margin-right: 0;
               margin-left: 30px;
             }
           }
-
-          >.el-menu-item {
+          > .el-menu-item {
             .el-tag {
               position: relative !important;
               margin-top: 0 !important;
               margin-right: -20px;
               margin-left: 25px;
             }
-
             .mc-dot {
               float: right;
-              margin-top: #{math.div($base-header-height - 6, 2)}+1;
+              margin-top: #{math.div($base-header-height - 6, 2)}+ 1;
             }
 
-            @media only screen and (max-width: 1199px) {
+            @media only screen and (width <= 1199px) {
               .el-tag {
                 display: none;
               }
             }
           }
         }
-
         .el-menu {
           border: 0 !important;
-
           * {
             border: 0 !important;
           }
-
           &.el-menu--horizontal {
             display: flex;
             align-items: center;
             justify-content: flex-end;
-            margin-right: 80px;
             width: 100%;
             height: $base-menu-height;
+            margin-right: 80px;
             border: 0 !important;
-
-            >.el-menu-item,
-            >.el-sub-menu {
+            > .el-menu-item,
+            > .el-sub-menu {
               height: $base-menu-height;
               margin-right: 3px;
               line-height: $base-menu-height;
               border-radius: 3px;
-
               .el-sub-menu__icon-arrow {
                 float: right;
                 margin-top: 7px;
               }
-
-              >.el-sub-menu__title {
+              > .el-sub-menu__title {
                 display: flex;
                 align-items: flex-start;
                 height: $base-menu-height;
@@ -162,58 +151,47 @@ $base-menu-height: 40px;
               }
             }
           }
-
-          [class*='ri-'],
+          [class*="ri-"],
           .mc-icon {
             margin-left: 0;
             color: var(--el-color-white);
             cursor: pointer;
           }
-
           .el-sub-menu {
             .mc-icon {
               margin-top: 12px !important;
             }
           }
-
           .el-sub-menu,
           .el-menu-item {
-
             i,
             .mc-icon {
               color: inherit;
             }
-
             &.is-active {
               border: 0 !important;
-
               .el-sub-menu__title {
                 border: 0 !important;
               }
             }
           }
-
           .el-menu-item {
             &.is-active {
               background: var(--el-color-primary) !important;
             }
           }
         }
-
         .user-name {
           color: var(--el-color-white);
         }
-
-        .user-name+i {
+        .user-name + i {
           color: var(--el-color-white);
         }
-
-        [class*='ri-'] {
+        [class*="ri-"] {
           margin-left: $base-margin;
           color: var(--el-color-white);
           cursor: pointer;
         }
-
         button {
           svg {
             margin-right: 0;
@@ -234,7 +212,6 @@ bug使用popper-append-to-body=false会导致多级路由无法显示，故所�
 // @use 'sass:math';
 
 @mixin menuActiveHover {
-
   &:hover,
   &.is-active {
     i {
@@ -243,7 +220,6 @@ bug使用popper-append-to-body=false会导致多级路由无法显示，故所�
 
     color: var(--el-color-white) !important;
     background: var(--el-color-primary) !important;
-
     .el-sub-menu__title {
       i {
         color: var(--el-color-white) !important;
@@ -254,48 +230,43 @@ bug使用popper-append-to-body=false会导致多级路由无法显示，故所�
     }
   }
 }
-
 .el-popper {
   .el-menu--horizontal {
     height: #{math.div($base-header-height, 1.4)};
     border-bottom: 0 solid transparent !important;
 
-    @media only screen and (max-width: 1199px) {
+    @media only screen and (width <= 1199px) {
       .el-tag {
         display: none;
       }
     }
-
     .el-tag {
       position: absolute;
       right: 20px;
       margin-top: 0 !important;
     }
-
     .mc-dot {
       position: absolute;
       right: 20px;
       margin-top: 0 !important;
     }
-
     .el-menu-item,
     .el-sub-menu {
       height: #{math.div($base-header-height, 1.4)} !important;
       line-height: #{math.div($base-header-height, 1.4)} !important;
-      @include menuActiveHover;
 
+      @include menuActiveHover;
       i,
       svg {
         color: inherit;
       }
-
       .el-sub-menu__icon-arrow {
         float: right;
       }
-
       .el-sub-menu__title {
         height: #{math.div($base-header-height, 1.4)} !important;
         line-height: #{math.div($base-header-height, 1.4)} !important;
+
         @include menuActiveHover;
       }
     }

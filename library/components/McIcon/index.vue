@@ -5,42 +5,41 @@
  * @Description: 
 -->
 <script>
-
 export default {
-  name: 'McIcon',
+  name: "McIcon",
   props: {
     icon: {
       type: String,
-      required: true,
+      required: true
     },
     // 是否使用自定义图标
     isCustomSvg: {
       type: Boolean,
-      default: false,
+      default: false
     },
     // 是否使用本地库Remix图标
     isDefaultSvg: {
       type: Boolean,
-      default: false,
+      default: false
     },
     className: {
       type: String,
-      default: '',
-    },
+      default: ""
+    }
   },
   setup(props) {
     const svgClass = computed(() => {
-      if (props.className) return `mc-icon ${props.className}`
-      else return 'mc-icon'
-    })
+      if (props.className) return `mc-icon ${props.className}`;
+      else return "mc-icon";
+    });
 
     return {
       svgClass,
-      isExternal: /^(https?:|mailto:|tel:)/.test(props.icon),
+      isExternal: /^(https?:|mailto:|tel:)/.test(props.icon)
       // remixIconPath: require('remixicon/fonts/remixicon.symbol.svg'),
-    }
-  },
-}
+    };
+  }
+};
 </script>
 <template>
   <img v-if="isExternal" class="img-icon" :src="icon" />
@@ -51,9 +50,13 @@ export default {
   <svg v-else-if="isDefaultSvg" class="mc-icon">
     <use :xlink:href="remixIconPath + '#ri-' + icon" />
   </svg>
-  <i v-else aria-hidden="true" :class="{
-    ['ri-' + icon]: true,
-  }" />
+  <i
+    v-else
+    aria-hidden="true"
+    :class="{
+      ['ri-' + icon]: true
+    }"
+  />
 </template>
 <style lang="scss" scoped>
 .img-icon {
@@ -62,7 +65,6 @@ export default {
   height: 2em;
   vertical-align: middle;
 }
-
 .mc-icon {
   display: inline-block;
   width: 16px;
@@ -72,8 +74,7 @@ export default {
   vertical-align: middle;
   fill: currentColor;
 }
-
-[class*='ri'] {
+[class*="ri"] {
   display: inline-block;
   font-size: 16px;
   text-align: center;
