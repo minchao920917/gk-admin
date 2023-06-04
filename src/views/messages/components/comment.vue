@@ -59,7 +59,7 @@ const showCommentInput = (item: any, reply: any) => {
         </span>
       </div>
       <div class="reply">
-        <div class="item" v-for="(reply, index) in item.reply" :key="index">
+        <div class="item" v-for="(reply, indexReplay) in item.reply" :key="indexReplay">
           <div class="reply-content">
             <span class="from-name">{{ reply.fromName }} </span><span>: </span>
             <span class="to-name">@{{ reply.toName }}</span>

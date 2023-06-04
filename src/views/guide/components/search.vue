@@ -280,7 +280,7 @@ const search = () => {
       .filter-group {
         display: flex;
         align-items: center;
-        justify-content: start;
+        justify-content: flex-start;
         margin-right: 20px;
       }
       .filter-group-title {
